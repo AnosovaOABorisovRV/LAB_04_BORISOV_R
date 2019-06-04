@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cassert>
 #include<cstdint>
+#include<cstdio>
 
 using namespace std;
 
@@ -27,7 +28,7 @@ print_in_hex(const void* data, size_t size) {
     for (size_t i = 0; i < size; i++) {
         print_in_hex(bytes[i]);
 
-        // Äëÿ óäîáñòâà ÷òåíèÿ: ïðîáåëû ìåæäó áàéòàì, ïî 16 áàéò íà ñòðîêó.
+
         if ((i + 1) % 16) {
             cout << ' ';
         }
@@ -59,7 +60,7 @@ print_in_binary(const void* data, size_t size) {
     for (size_t i = 0; i < size; i++) {
         print_in_binary(bytes[i]);
 
-        // Äëÿ óäîáñòâà ÷òåíèÿ: ïðîáåëû ìåæäó áàéòàìè, ïî 4 áàéòà íà ñòðîêó.
+
         if ((i + 1) % 4 ) {
             cout << ' ';
         }
@@ -69,14 +70,45 @@ print_in_binary(const void* data, size_t size) {
     }
 }
 
+void bitcalc()
+{
+    uint16_t operand1,operand2,result;
+    char op; // îïðåàòîð
+
+    cin>> operand1>>op>>operand2;
+
+    switch (op)
+    {
+    case '&':
+        result = operand1 & operand2;
+        break;
+    case '|':
+        result = operand1 | operand2;
+        break;
+    case '^':
+        result = operand1 ^ operand2;
+        break;
+    }
+    print_in_hex(&operand1, sizeof(operand1));
+    cout<<op<<" ";
+    print_in_hex(&operand2, sizeof(operand2));
+    cout<<"= ";
+    print_in_hex(&result, sizeof(result));
+    cout<<'\n';
+
+    print_in_binary(&operand1, sizeof(operand1));
+    cout<<op<<" ";
+    print_in_binary(&operand2, sizeof(operand2));
+    cout<<"= ";
+    print_in_binary(&result, sizeof(result));
+
+}
+
+
 
 int main()
 {
-
-        uint32_t u32 = 42;
-        cout << "u32 bytes: ";
-        print_in_binary(&u32, sizeof(u32));
-        cout << '\n';
+        bitcalc();
 
        return 0;
 }
